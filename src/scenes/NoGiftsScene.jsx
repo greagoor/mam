@@ -15,8 +15,10 @@ export default function NoGiftsScene() {
     setPhase('shaking')
     gsap.fromTo(boxRef.current,
       { x: 0 },
-      { x: 6, duration: 0.06, repeat: 9, yoyo: true, ease: 'power1.inOut',
-        onComplete: () => setPhase('denied') })
+      {
+        x: 6, duration: 0.06, repeat: 9, yoyo: true, ease: 'power1.inOut',
+        onComplete: () => setPhase('denied')
+      })
 
     setTimeout(() => {
       if (!mountedRef.current) return
@@ -80,7 +82,7 @@ export default function NoGiftsScene() {
 
         {phase === 'resolved' && (
           <div className="punchline">
-            <p className="punchline-text">fine. I built a whole instrument instead.</p>
+            <p className="punchline-text">fine. Let's go with this instead instead.</p>
           </div>
         )}
       </div>
