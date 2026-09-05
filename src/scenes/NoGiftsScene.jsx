@@ -82,7 +82,7 @@ export default function NoGiftsScene() {
 
         {phase === 'resolved' && (
           <div className="punchline">
-            <p className="punchline-text">fine. Let's go with this instead instead.</p>
+            <p className="punchline-text">I heard about the no git policy somehwere .... fine. Let's go with this instead instead.</p>
           </div>
         )}
       </div>
