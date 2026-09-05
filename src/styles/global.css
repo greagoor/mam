@@ -1,0 +1,255 @@
+/* ============================================================
+   DESIGN SYSTEM — "for ma'am"
+   A hybrid identity: strict-system HUD meets warm editorial memory.
+   ============================================================ */
+
+:root {
+  /* ---- palette ---- */
+  --ink:        #0a0b10;   /* base dark */
+  --ink-2:      #12141c;   /* elevated dark surface */
+  --ink-3:      #1b1e29;   /* border-level dark */
+  --chalk:      #f1ede4;   /* warm off-white / chalkboard dust */
+  --chalk-dim:  #cfc9ba;
+  --signal:     #d6402c;   /* strict / warning accent */
+  --signal-2:   #ff6a4d;
+  --mint:       #3fe0c5;   /* cool / systems accent */
+  --mint-dim:   #1f7a6c;
+  --gold:       #c9a24c;   /* graduation / certificate accent */
+  --gold-dim:   #6f5c2c;
+  --plum:       #322847;   /* atmospheric depth */
+  --plum-2:     #1c1730;
+
+  /* ---- type ---- */
+  --font-display: 'Fraunces', serif;
+  --font-ui: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-hand: 'Caveat', cursive;
+
+  /* ---- spacing scale ---- */
+  --sp-1: 0.4rem;
+  --sp-2: 0.8rem;
+  --sp-3: 1.4rem;
+  --sp-4: 2.2rem;
+  --sp-5: 3.6rem;
+  --sp-6: 5.6rem;
+  --sp-7: 8.8rem;
+
+  /* ---- motion ---- */
+  --ease-out: cubic-bezier(.16,.9,.2,1);
+  --ease-in-out: cubic-bezier(.65,0,.35,1);
+  --ease-spring: cubic-bezier(.22,1.4,.36,1);
+  --dur-fast: .35s;
+  --dur-med: .7s;
+  --dur-slow: 1.4s;
+
+  /* ---- instrument-panel extensions ---- */
+  --hud-border-color:   rgba(63,224,197,0.18);
+  --hud-border:         1px solid var(--hud-border-color);
+  --hud-glow:           0 0 14px rgba(63,224,197,0.20);
+  --signal-glow:        0 0 14px rgba(214,64,44,0.38);
+  --gold-glow:          0 0 14px rgba(201,162,76,0.32);
+  --bracket-size:       16px;   /* corner-bracket arm length */
+  --bracket-weight:     1.5px;  /* corner-bracket stroke width */
+  --scanline-dur:       9s;
+  --font-size-hud:      0.65rem;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--ink);
+  color: var(--chalk);
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  position: relative;
+  width: 100%;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 560;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p { margin: 0; }
+
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a { color: inherit; }
+
+::selection {
+  background: var(--signal);
+  color: var(--chalk);
+}
+
+/* scrollbar (webkit) — kept subtle, not a design centerpiece */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--ink-3); border-radius: 4px; }
+
+/* focus visibility — accessibility floor */
+:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hud-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--mint);
+  opacity: 0.75;
+}
+
+.gold-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+/* skip link for keyboard users */
+.skip-link {
+  position: fixed;
+  top: -60px;
+  left: 12px;
+  z-index: 9999;
+  background: var(--chalk);
+  color: var(--ink);
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  transition: top .2s var(--ease-out);
+}
+.skip-link:focus { top: 12px; }
+
+/* reduced motion — global governor */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+.no-scroll { overflow: hidden !important; height: 100%; }
+
+/* ---- instrument utilities ---- */
+
+/* Monospace tabular figures for all live numeric readouts */
+.live-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+/* Glow text-shadow helpers */
+.glow-mint  { text-shadow: var(--hud-glow); }
+.glow-signal{ text-shadow: var(--signal-glow); }
+.glow-gold  { text-shadow: var(--gold-glow); }
+
+/* Corner-bracket frame — add .hud-frame to any positioned container.
+   Uses outline-free CSS generated content for the 4 corner brackets.
+   The container must have position:relative (or any non-static).      */
+.hud-frame { position: relative; }
+.hud-frame::before,
+.hud-frame::after {
+  content: '';
+  position: absolute;
+  width: var(--bracket-size);
+  height: var(--bracket-size);
+  pointer-events: none;
+  z-index: 1;
+}
+/* top-left */
+.hud-frame::before {
+  top: 0; left: 0;
+  border-top: var(--bracket-weight) solid var(--hud-border-color);
+  border-left: var(--bracket-weight) solid var(--hud-border-color);
+}
+/* top-right */
+.hud-frame::after {
+  top: 0; right: 0;
+  border-top: var(--bracket-weight) solid var(--hud-border-color);
+  border-right: var(--bracket-weight) solid var(--hud-border-color);
+}
+/* bottom brackets via a wrapper child trick — scenes add data-hud-frame
+   and we use a sibling pseudo. Easier: supply bottom brackets via a
+   small dedicated element .hud-frame-bottom injected in each scene.    */
+.hud-corners {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1;
+}
+.hud-corners::before,
+.hud-corners::after {
+  content: '';
+  position: absolute;
+  width: var(--bracket-size);
+  height: var(--bracket-size);
+}
+.hud-corners::before {
+  bottom: 0; left: 0;
+  border-bottom: var(--bracket-weight) solid var(--hud-border-color);
+  border-left:   var(--bracket-weight) solid var(--hud-border-color);
+}
+.hud-corners::after {
+  bottom: 0; right: 0;
+  border-bottom: var(--bracket-weight) solid var(--hud-border-color);
+  border-right:  var(--bracket-weight) solid var(--hud-border-color);
+}
+
+/* journey container — leaves space for the fixed right nav rail on desktop */
+#journey {
+  padding-right: 0;
+}
+@media (min-width: 900px) {
+  #journey { padding-right: 56px; }
+}
