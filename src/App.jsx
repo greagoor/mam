@@ -21,6 +21,7 @@ export default function App() {
   useEffect(() => {
     if (!entered) return
     document.body.classList.remove('no-scroll')
+
     // top HUD progress bar reflecting overall scroll through the journey
     const st = ScrollTrigger.create({
       trigger: journeyRef.current,
@@ -30,8 +31,56 @@ export default function App() {
         gsap.set(progressRef.current, { scaleX: self.progress })
       },
     })
-    const t = setTimeout(() => ScrollTrigger.refresh(), 60)
-    return () => { st.kill(); clearTimeout(t) }
+
+    const refreshLayout = () => {
+      ScrollTrigger.refresh()
+      if (typeof window !== 'undefined' && window.__ST_METRICS__) {
+        console.log('[DEBUG ScrollTrigger Metrics]', window.__ST_METRICS__())
+      }
+    }
+
+    // Expose debug metrics helper for verification
+    window.__ST_METRICS__ = () => ({
+      scrollHeight: document.documentElement.scrollHeight,
+      innerHeight: window.innerHeight,
+      ratio: (document.documentElement.scrollHeight / window.innerHeight).toFixed(2),
+      triggers: ScrollTrigger.getAll().map((t) => ({
+        id: t.trigger?.id || (t.trigger?.className ? String(t.trigger.className).split(' ')[0] : 'trigger'),
+        start: Math.round(t.start),
+        end: Math.round(t.end),
+        span: Math.round(t.end - t.start),
+      })),
+    })
+
+    // 1. Initial measurement after DOM render
+    const rafId = requestAnimationFrame(() => refreshLayout())
+    const timerA = setTimeout(refreshLayout, 100)
+    const timerB = setTimeout(refreshLayout, 400)
+
+    // 2. Refresh when web fonts finish downloading and reflow layout
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => refreshLayout())
+    }
+
+    // 3. Debounced refresh on window resize & orientation change
+    let resizeTimer
+    const handleResize = () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(() => refreshLayout(), 150)
+    }
+
+    window.addEventListener('resize', handleResize)
+    window.addEventListener('orientationchange', handleResize)
+
+    return () => {
+      st.kill()
+      cancelAnimationFrame(rafId)
+      clearTimeout(timerA)
+      clearTimeout(timerB)
+      clearTimeout(resizeTimer)
+      window.removeEventListener('resize', handleResize)
+      window.removeEventListener('orientationchange', handleResize)
+    }
   }, [entered])
 
   useEffect(() => {

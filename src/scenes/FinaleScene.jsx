@@ -48,7 +48,7 @@ export default function FinaleScene({ onReplay }) {
       <ParticleField density={0.3} color="241,237,228" />
       <div className="finale-content hud-frame">
         <div className="hud-corners" aria-hidden="true" />
-        <p ref={line1Ref} className="finale-line finale-line-1">Happy Teachers&rsquo; Day, Ma&rsquo;am.</p>
+        <p ref={line1Ref} className="finale-line finale-line-1">Happy Teachers&rsquo; Day, Archana Ma&rsquo;am.</p>
         <p ref={line2Ref} className="finale-line finale-line-2">Different campus. Same standard you set.</p>
 
         <div className="signature-wrap">

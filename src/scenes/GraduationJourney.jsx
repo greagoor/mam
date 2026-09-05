@@ -86,8 +86,8 @@ export default function GraduationJourney() {
       </div>
 
       <style>{`
-        .grad-wrap { position: relative; height: 320vh; }
-        .grad-sticky { position: sticky; top: 0; height: 100svh; overflow:hidden; background: var(--ink); }
+        .grad-wrap { position: relative; height: 320svh; }
+        .grad-sticky { position: sticky; top: 0; height: 100svh; height: 100dvh; overflow:hidden; background: var(--ink); }
         .layer { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
         .classroom-layer { flex-direction:column; gap: var(--sp-4); }
         .board { width: min(60vw, 420px); height: 130px; border: 2px solid rgba(63,224,197,0.25); border-radius: 3px; background: #0d1810;
@@ -104,7 +104,7 @@ export default function GraduationJourney() {
           transform: rotate(calc(var(--i) * 12deg - 78deg)) scaleY(1.2);
           opacity: 0.55;
         }
-        .campus-layer { align-items:flex-end; padding-bottom: 8vh; }
+        .campus-layer { align-items:flex-end; padding-bottom: 8svh; }
         .campus-skyline { display:flex; align-items:flex-end; gap: 14px; }
         .building { display:block; width: 34px; background: linear-gradient(180deg, var(--ink-3), var(--ink-2)); border-top: 2px solid var(--mint); height: calc(60px + var(--i) * 22px); box-shadow: 0 0 24px rgba(63,224,197,0.15); }
         .orb {

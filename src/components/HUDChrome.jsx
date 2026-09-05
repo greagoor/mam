@@ -217,7 +217,7 @@ export default function HUDChrome({ entered }) {
           0%   { top: -4px; opacity: 0; }
           3%   { opacity: 1; }
           94%  { opacity: 0.8; }
-          100% { top: 100vh; opacity: 0; }
+          100% { top: 100svh; opacity: 0; }
         }
 
         .hud-coord {
