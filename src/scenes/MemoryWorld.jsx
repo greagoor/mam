@@ -21,7 +21,7 @@ const ENTRIES = [
     id: 'chalk',
     index: '002',
     category: 'CLASSROOM LOG',
-    line: 'no slides. the board was the deck, the marker was the remote.',
+    line: 'the board was the deck, the mouse was the marker.',
     icon: (c) => (
       <svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true">
         <rect x="12" y="17" width="18" height="6" rx="2" fill="none" stroke={c} strokeWidth="1.5" transform="rotate(-15 21 20)" />
@@ -169,10 +169,10 @@ function MemoryEntry({ entry, active, reduced, cardRef }) {
 }
 
 export default function MemoryWorld() {
-  const sectionRef  = useRef(null)
-  const cardRef     = useRef(null)
-  const [current, setCurrent]   = useState(-1)   // -1 = not started
-  const [started, setStarted]   = useState(false)
+  const sectionRef = useRef(null)
+  const cardRef = useRef(null)
+  const [current, setCurrent] = useState(-1)   // -1 = not started
+  const [started, setStarted] = useState(false)
   const reduced = prefersReducedMotion()
 
   const totalEntries = ENTRIES.length
